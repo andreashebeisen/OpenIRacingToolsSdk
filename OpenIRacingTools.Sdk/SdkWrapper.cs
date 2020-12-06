@@ -3,14 +3,10 @@ using OpenIRacingTools.Sdk.Events;
 using OpenIRacingTools.Sdk.Model;
 using OpenIRacingTools.Sdk.Native;
 using OpenIRacingTools.Sdk.Yaml;
-using SharpYaml.Serialization;
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace OpenIRacingTools.Sdk
 {
@@ -109,7 +105,7 @@ namespace OpenIRacingTools.Sdk
         /// </summary>
         public int ConnectSleepTime { get; set; } = 1000;
 
-        public SessionInfoNg SessionInfo { get; private set; }
+        public SessionInfo SessionInfo { get; private set; }
 
         public TelemetryInfo TelemetryInfo { get; private set; }
 
@@ -221,7 +217,7 @@ namespace OpenIRacingTools.Sdk
                     if (newUpdate != lastUpdate)
                     {
                         lastUpdate = newUpdate;
-                        SessionInfo = deserializer.Deserialize<SessionInfoNg>(sdk.GetSessionInfo());
+                        SessionInfo = deserializer.Deserialize<SessionInfo>(sdk.GetSessionInfo());
                     }
                 }
                 else if (hasConnected)

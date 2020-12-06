@@ -1,11 +1,5 @@
-﻿using OpenIRacingTools.Sdk.Model;
-using OpenIRacingTools.Sdk.Yaml;
-using System;
-using System.IO;
+﻿using System;
 using System.Threading;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
-using YamlDotNet.Serialization.TypeResolvers;
 
 namespace OpenIRacingTools.Sdk.Cli
 {

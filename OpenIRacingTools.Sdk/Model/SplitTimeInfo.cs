@@ -2,8 +2,8 @@
 
 namespace OpenIRacingTools.Sdk.Model
 {
-    public class CameraInfo
+    public class SplitTimeInfo
     {
-        public List<CameraGroup> Groups { get; private set; }
+        public List<Sector> Sectors { get; private set; }
     }
 }

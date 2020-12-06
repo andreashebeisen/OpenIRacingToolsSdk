@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OpenIRacingTools.Sdk.ModelNg
+﻿namespace OpenIRacingTools.Sdk.ModelNg
 {
-    public class TireNg
+    public class Tire
     {
         public string StartingPressure { get; set; }
         public string LastHotPressure { get; set; }

@@ -1,13 +1,9 @@
 ﻿using OpenIRacingTools.Sdk.Model.Types;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenIRacingTools.Sdk.Model
 {
-    public class WeekendOptionsNg
+    public class WeekendOptions
     {
         public int NumStarters { get; private set; }
         public string StartingGrid { get; private set; }

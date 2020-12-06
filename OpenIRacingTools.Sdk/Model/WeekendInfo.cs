@@ -1,13 +1,8 @@
 ﻿using OpenIRacingTools.Sdk.Model.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenIRacingTools.Sdk.Model
 {
-    public class WeekendInfoNg
+    public class WeekendInfo
     {
         public string TrackName { get; private set; }
         public int TrackId { get; private set; }
@@ -59,7 +54,7 @@ namespace OpenIRacingTools.Sdk.Model
         public string BuildType { get; private set; }
         public string BuildTarget { get; private set; }
         public string BuildVersion { get; private set; }
-        public WeekendOptionsNg WeekendOptions { get; private set; }
-        public TelemetryOptionsNg TelemetryOptions { get; private set; }
+        public WeekendOptions WeekendOptions { get; private set; }
+        public TelemetryOptions TelemetryOptions { get; private set; }
     }
 }

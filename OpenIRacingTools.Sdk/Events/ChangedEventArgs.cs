@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace OpenIRacingTools.Sdk
+namespace OpenIRacingTools.Sdk.Events
 {
-    public class SdkUpdateEventArgs : EventArgs
+    public abstract class ChangedEventArgs : EventArgs
     {
-        public SdkUpdateEventArgs(double time)
+        protected ChangedEventArgs(double time)
         {
             UpdateTime = time;
         }

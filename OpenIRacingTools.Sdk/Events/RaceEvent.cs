@@ -52,7 +52,7 @@ namespace OpenIRacingTools.Sdk.Model.Events
     /// </summary>
     public abstract class DriverRaceEvent : RaceEvent
     {
-        public DriverNg Driver { get; set; }
+        public Driver Driver { get; set; }
     }
 
     /// <summary>
@@ -60,8 +60,8 @@ namespace OpenIRacingTools.Sdk.Model.Events
     /// </summary>
     public abstract class DriverSetRaceEvent : RaceEvent
     {
-        public DriverNg Driver1 { get; set; }
-        public DriverNg Driver2 { get; set; }
+        public Driver Driver1 { get; set; }
+        public Driver Driver2 { get; set; }
 
         public override EventTypes Type { get { return EventTypes.DriverSwap; } }
     }

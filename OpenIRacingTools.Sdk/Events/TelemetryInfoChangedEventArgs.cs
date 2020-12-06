@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OpenIRacingTools.Sdk.Events
+﻿namespace OpenIRacingTools.Sdk.Events
 {
-    public class TelemetryInfoChangedEventArgs : EventArgs
+    public class TelemetryInfoChangedEventArgs : ChangedEventArgs
     {
-        public TelemetryInfoChangedEventArgs(TelemetryInfo info, double sessionTime)
+        public TelemetryInfoChangedEventArgs(TelemetryInfo info, double time)
+            : base(time)
         {
             TelemetryInfo = info;
-            UpdateTime = sessionTime;
         }
 
         public TelemetryInfo TelemetryInfo { get; }
-        public double UpdateTime { get; }
     }
 }

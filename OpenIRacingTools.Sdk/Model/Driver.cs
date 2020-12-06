@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace OpenIRacingTools.Sdk.Model
 {
-    public class DriverNg
+    public class Driver
     {
         public int CarIdx { get; private set; }
         public string AbbrevName { get; private set; }

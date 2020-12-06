@@ -1,21 +1,15 @@
 ﻿using OpenIRacingTools.Sdk.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenIRacingTools.Sdk.Events
 {
-    public class SessionInfoChangedEventArgs : EventArgs
+    public class SessionInfoChangedEventArgs : ChangedEventArgs
     {
-        public SessionInfoChangedEventArgs(SessionInfoNg info, double sessionTime)
+        public SessionInfoChangedEventArgs(SessionInfo info, double time)
+            : base(time)
         {
             SessionInfo = info;
-            UpdateTime = sessionTime;
         }
 
-        public SessionInfoNg SessionInfo { get; set; }
-        public double UpdateTime { get; }
+        public SessionInfo SessionInfo { get; set; }
     }
 }
