@@ -1,9 +1,8 @@
-/iRacingSdkWrapper.v12.suo
-/irsdkSharp/obj
-/irsdkSharp/bin
-/iRacingSdkWrapper/obj
-/iRacingSdkWrapper/bin
-/iRacingSdkWrapper/iRacingSdkWrapper.v12.suo
-/iRacingSimulator/iRacingSimulator.csproj.user
-/iRacingSimulator/bin
-/iRacingSimulator/obj
+/.vs
+/OpenIRacingTools.Sdk/bin
+/OpenIRacingTools.Sdk/obj
+/OpenIRacingTools.Sdk.Cli/bin
+/OpenIRacingTools.Sdk.Cli/obj
+/OpenIRacingTools.Sdk.Native/bin
+/OpenIRacingTools.Sdk.Native/obj
+/packages

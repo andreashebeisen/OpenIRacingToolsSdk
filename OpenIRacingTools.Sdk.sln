@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{76A575E7-EC4A-4C1F-B33C-940D38D5E28F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIRacingTools.Sdk.Native", "OpenIRacingTools.Sdk.Native\OpenIRacingTools.Sdk.Native.csproj", "{1C9E5523-14D6-4340-B85D-16EC85E0316F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIRacingTools.Sdk", "OpenIRacingTools.Sdk\OpenIRacingTools.Sdk.csproj", "{C4127B2E-87E2-4548-8666-ECC79DC041C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIRacingTools.Sdk.Cli", "OpenIRacingTools.Sdk.Cli\OpenIRacingTools.Sdk.Cli.csproj", "{C9870938-DC60-4CD7-8ECE-B17A2D967A04}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C9E5523-14D6-4340-B85D-16EC85E0316F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9E5523-14D6-4340-B85D-16EC85E0316F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9E5523-14D6-4340-B85D-16EC85E0316F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9E5523-14D6-4340-B85D-16EC85E0316F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4127B2E-87E2-4548-8666-ECC79DC041C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4127B2E-87E2-4548-8666-ECC79DC041C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4127B2E-87E2-4548-8666-ECC79DC041C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4127B2E-87E2-4548-8666-ECC79DC041C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9870938-DC60-4CD7-8ECE-B17A2D967A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9870938-DC60-4CD7-8ECE-B17A2D967A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9870938-DC60-4CD7-8ECE-B17A2D967A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9870938-DC60-4CD7-8ECE-B17A2D967A04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F8A9844-78B7-4E39-AB43-947BD6290D4D}
+	EndGlobalSection
+EndGlobal

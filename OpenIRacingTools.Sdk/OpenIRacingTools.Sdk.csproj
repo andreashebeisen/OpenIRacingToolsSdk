@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpYaml" Version="1.6.6" />
+    <PackageReference Include="YamlDotNet" Version="9.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenIRacingTools.Sdk.Native\OpenIRacingTools.Sdk.Native.csproj" />
+  </ItemGroup>
+
+</Project>
