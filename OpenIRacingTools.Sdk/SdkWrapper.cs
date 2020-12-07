@@ -50,9 +50,11 @@ namespace OpenIRacingTools.Sdk
 
             deserializer = new DeserializerBuilder()
                 .IgnoreUnmatchedProperties()
-                .WithTypeConverter(new DoubleTypeConverter())
+                .WithTypeConverter(new NumericTypeConverter())
                 .WithTypeConverter(new DoubleUnitTypeConverter())
                 .WithTypeConverter(new BooleanTypeConverter())
+                .WithTypeConverter(new EnumTypeConverter())
+                .WithTypeConverter(new ColorTypeConverter())
                 .Build();
         }
 
@@ -73,6 +75,8 @@ namespace OpenIRacingTools.Sdk
         /// Is the SDK connected to iRacing?
         /// </summary>
         public bool IsConnected { get; private set; }
+
+        public string SerializationErrorLogsPath { get; set; }
 
         private int telemetryUpdateFrequency;
         /// <summary>
@@ -105,11 +109,11 @@ namespace OpenIRacingTools.Sdk
         /// </summary>
         public int ConnectSleepTime { get; set; } = 1000;
 
-        public SessionInfo SessionInfo { get; private set; }
+        public SessionInfoWrapper SessionInfo { get; private set; }
 
         public TelemetryInfo TelemetryInfo { get; private set; }
 
-        internal string SessionInfoRaw { get; private set; }
+        public string SessionInfoRaw { get; private set; }
 
         #region Broadcast messages
 
@@ -217,7 +221,8 @@ namespace OpenIRacingTools.Sdk
                     if (newUpdate != lastUpdate)
                     {
                         lastUpdate = newUpdate;
-                        SessionInfo = deserializer.Deserialize<SessionInfo>(sdk.GetSessionInfo());
+                        SessionInfoRaw = sdk.GetSessionInfo();
+                        SessionInfo = deserializer.Deserialize<SessionInfoWrapper>(SessionInfoRaw);
                     }
                 }
                 else if (hasConnected)

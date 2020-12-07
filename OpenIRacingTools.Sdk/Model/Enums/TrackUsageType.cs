@@ -1,16 +1,19 @@
-﻿namespace OpenIRacingTools.Sdk.Model.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace OpenIRacingTools.Sdk.Model.Enums
 {
     public enum TrackUsageType
     {
         Unknown = -1,
         Clean,
-        Slight,
-        Low,
-        ModeratelyLow,
-        Moderate,
-        ModeratelyHigh,
-        High,
-        Extensive,
-        Maximum
+        SlightUsage,
+        LowUsage,
+        ModeratelyLowUsage,
+        ModerateUsage,
+        ModeratelyHighUsage,
+        HighUsage,
+        ExtensiveUsage,
+        MaximumUsage,
+        CarryOver
     }
 }

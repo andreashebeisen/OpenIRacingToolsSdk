@@ -1,4 +1,5 @@
-﻿using OpenIRacingTools.Sdk.Model.Types;
+﻿using OpenIRacingTools.Sdk.Model.Enums;
+using OpenIRacingTools.Sdk.Model.Types;
 using System;
 
 namespace OpenIRacingTools.Sdk.Model
@@ -6,14 +7,14 @@ namespace OpenIRacingTools.Sdk.Model
     public class WeekendOptions
     {
         public int NumStarters { get; private set; }
-        public string StartingGrid { get; private set; }
-        public string QualifyingScoring { get; private set; }
-        public bool CourseCautions { get; private set; }
+        public StartingGrid StartingGrid { get; private set; }
+        public QualifyingScore QualifyingScoring { get; private set; }
+        public CourseCaution CourseCautions { get; private set; }
         public bool StandingStart { get; private set; }
         public bool ShortParadeLap { get; private set; }
-        public string Restarts { get; private set; }
-        public string WeatherType { get; private set; }
-        public string Skies { get; private set; }
+        public Restart Restarts { get; private set; }
+        public WeatherType WeatherType { get; private set; }
+        public TrackSky Skies { get; private set; }
         public string WindDirection { get; private set; }
         public Speed WindSpeed { get; private set; }
         public Temperature WeatherTemp { get; private set; }
@@ -23,10 +24,10 @@ namespace OpenIRacingTools.Sdk.Model
         public DateTime Date { get; private set; }
         public int EarthRotationSpeedupFactor { get; private set; }
         public bool Unofficial { get; private set; }
-        public string CommercialMode { get; private set; }
-        public string NightMode { get; private set; }
+        public CommercialMode CommercialMode { get; private set; }
+        public NightMode NightMode { get; private set; }
         public bool IsFixedSetup { get; private set; }
-        public string StrictLapsChecking { get; private set; }
+        public StrictLapsChecking StrictLapsChecking { get; private set; }
         public bool HasOpenRegistration { get; private set; }
         public int HardcoreLevel { get; private set; }
         public int NumJokerLaps { get; private set; }

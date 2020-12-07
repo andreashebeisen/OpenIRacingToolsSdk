@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenIRacingTools.Sdk.Model
+namespace OpenIRacingTools.Sdk.Model.Enums
 {
-    public class SessionInfo
+    public enum QualifyingScore
     {
-        public List<Session> Sessions { get; private set; }
+        BestLap,
     }
 }

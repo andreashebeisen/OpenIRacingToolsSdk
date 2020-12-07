@@ -31,7 +31,7 @@ namespace OpenIRacingTools.Sdk.Model
         public int LicLevel { get; private set; }
         public int LicSubLevel { get; private set; }
         public string LicString { get; private set; }
-        public Color LicColor { get; private set; }
+        public Color? LicColor { get; private set; }
         public bool IsSpectator { get; private set; }
         public string CarDesignStr { get; private set; }
         public string HelmetDesignStr { get; private set; }

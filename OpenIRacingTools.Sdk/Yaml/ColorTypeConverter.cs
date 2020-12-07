@@ -1,28 +1,32 @@
 ﻿using System;
-using System.Globalization;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
 
 namespace OpenIRacingTools.Sdk.Yaml
 {
-    internal class DoubleTypeConverter : IYamlTypeConverter
+    internal class ColorTypeConverter : IYamlTypeConverter
     {
         public bool Accepts(Type type)
         {
-            return type == typeof(double);
+            return type == typeof(Color) || type == typeof(Color?);
         }
 
         public object ReadYaml(IParser parser, Type type)
         {
             var value = parser.Consume<Scalar>().Value;
 
-            if (value.Contains(' '))
+            if (value == "0xundefined" && type == typeof(Color?))
             {
-                return double.Parse(value.Substring(0, value.IndexOf(' ')), CultureInfo.InvariantCulture);
+                return type == typeof(Color?) ? null : Color.Empty;
             }
 
-            return double.Parse(value, CultureInfo.InvariantCulture);
+            return ColorTranslator.FromHtml(value);
         }
 
         public void WriteYaml(IEmitter emitter, object value, Type type)

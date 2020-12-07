@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace OpenIRacingTools.Sdk.Model
 {
-    public class SessionInfo
+    public class QualifyResultsInfo
     {
-        public List<Session> Sessions { get; private set; }
+        public List<Result> Results { get; private set; }
     }
 }

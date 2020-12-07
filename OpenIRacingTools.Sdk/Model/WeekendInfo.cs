@@ -1,4 +1,5 @@
-﻿using OpenIRacingTools.Sdk.Model.Types;
+﻿using OpenIRacingTools.Sdk.Model.Enums;
+using OpenIRacingTools.Sdk.Model.Types;
 
 namespace OpenIRacingTools.Sdk.Model
 {
@@ -18,11 +19,10 @@ namespace OpenIRacingTools.Sdk.Model
         public double TrackNorthOffset { get; private set; }
         public int TrackNumTurns { get; private set; }
         public Speed TrackPitSpeedLimit { get; private set; }
-        // TODO: Use enum!
-        public string TrackType { get; private set; }
-        public string TrackDirection { get; private set; }
+        public TrackType TrackType { get; private set; }
+        public TrackDirection TrackDirection { get; private set; }
         public string TrackWeatherType { get; private set; }
-        public string TrackSkies { get; private set; }
+        public TrackSky TrackSkies { get; private set; }
         public Temperature TrackSurfaceTemp { get; private set; }
         public Temperature TrackAirTemp { get; private set; }
         public double TrackAirPressure { get; private set; }
@@ -40,8 +40,8 @@ namespace OpenIRacingTools.Sdk.Model
         public int LeagueID { get; private set; }
         public bool Official { get; private set; }
         public int RaceWeek { get; private set; }
-        public string EventType { get; private set; }
-        public string Category { get; private set; }
+        public EventType EventType { get; private set; }
+        public Category Category { get; private set; }
         public string SimMode { get; private set; }
         public bool TeamRacing { get; private set; }
         public int MinDrivers { get; private set; }
@@ -51,8 +51,8 @@ namespace OpenIRacingTools.Sdk.Model
         public int NumCarClasses { get; private set; }
         public int NumCarTypes { get; private set; }
         public bool HeatRacing { get; private set; }
-        public string BuildType { get; private set; }
-        public string BuildTarget { get; private set; }
+        public BuildType BuildType { get; private set; }
+        public BuildTarget BuildTarget { get; private set; }
         public string BuildVersion { get; private set; }
         public WeekendOptions WeekendOptions { get; private set; }
         public TelemetryOptions TelemetryOptions { get; private set; }

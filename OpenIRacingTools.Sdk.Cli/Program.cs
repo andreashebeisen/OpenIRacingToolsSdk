@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 
 namespace OpenIRacingTools.Sdk.Cli
@@ -15,7 +16,17 @@ namespace OpenIRacingTools.Sdk.Cli
             var sdk = new SdkWrapper();
             sdk.Start().WaitForConnection();
 
-            Thread.Sleep(10000);
+            while(true)
+            {
+                var data = sdk.SessionInfo;
+                var raw = sdk.SessionInfoRaw;
+
+                if (!string.IsNullOrEmpty(raw)) { 
+                    File.WriteAllText(@"C:\Users\matth\Downloads\iRacingSessionData\" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".yaml", raw);
+                }
+
+                Thread.Sleep(10000);
+            }
 
             sdk.Stop();
 
