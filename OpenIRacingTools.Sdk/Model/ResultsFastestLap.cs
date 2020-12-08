@@ -10,6 +10,6 @@ namespace OpenIRacingTools.Sdk.Model
     {
         public int CarIdx { get; private set; }
         public int FastestLap { get; private set; }
-        public double FastestTime { get; private set; }
+        public TimeSpan FastestTime { get; private set; }
     }
 }

@@ -26,6 +26,9 @@ namespace OpenIRacingTools.Sdk
 
         private IDeserializer deserializer;
 
+        private readonly TaskCompletionSource connectionSource = new TaskCompletionSource();
+        private readonly TaskCompletionSource firstDataSource = new TaskCompletionSource();
+
         #endregion
 
         /// <summary>
@@ -165,7 +168,7 @@ namespace OpenIRacingTools.Sdk
             runningCancellationToken = new CancellationTokenSource();
             Task.Run(() => Loop(runningCancellationToken.Token), runningCancellationToken.Token);
 
-            return new StartResult(this);
+            return new StartResult(connectionSource.Task, firstDataSource.Task);
         }
 
         /// <summary>
@@ -201,6 +204,7 @@ namespace OpenIRacingTools.Sdk
                     {
                         // If this is the first time, raise the Connected event
                         RaiseEvent(OnConnected, EventArgs.Empty);
+                        connectionSource.SetResult();
                     }
 
                     hasConnected = true;
@@ -220,9 +224,18 @@ namespace OpenIRacingTools.Sdk
                     int newUpdate = sdk.Header.SessionInfoUpdate;
                     if (newUpdate != lastUpdate)
                     {
-                        lastUpdate = newUpdate;
                         SessionInfoRaw = sdk.GetSessionInfo();
                         SessionInfo = deserializer.Deserialize<SessionInfoWrapper>(SessionInfoRaw);
+
+                        var args = new SessionInfoChangedEventArgs(SessionInfo, (double)sdk.GetData("SessionTime"));
+                        RaiseEvent(OnSessionInfoChanged, args);
+
+                        if (lastUpdate == -1)
+                        {
+                            firstDataSource.SetResult();
+                        }
+
+                        lastUpdate = newUpdate;
                     }
                 }
                 else if (hasConnected)
@@ -308,6 +321,7 @@ namespace OpenIRacingTools.Sdk
         }
 
         private void OnTelemetryInfoChanged(TelemetryInfoChangedEventArgs e) => TelemetryInfoChanged?.Invoke(this, e);
+        private void OnSessionInfoChanged(SessionInfoChangedEventArgs e) => SessionInfoChanged?.Invoke(this, e);
 
         private void OnConnected(EventArgs e) => Connected?.Invoke(this, e);
 

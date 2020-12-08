@@ -22,5 +22,10 @@ namespace OpenIRacingTools.Sdk.Model.Types
         }
 
         public double Meters { get; private set; }
+
+        private object ToDump()
+        {
+            return $"{Meters} m ({GetType().Name})";
+        }
     }
 }

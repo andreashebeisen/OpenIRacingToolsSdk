@@ -13,5 +13,6 @@ namespace OpenIRacingTools.Sdk.Model.Enums
         DirtRoadCourse,
         DirtOval,
         LongOval,
+        SuperSpeedway,
     }
 }

@@ -36,11 +36,11 @@ namespace OpenIRacingTools.Sdk.Yaml
                 }
             }
 
-            if (type == typeof(double)) { 
+            if (type == typeof(double) || type == typeof(double?)) { 
 
                 return double.Parse(value, CultureInfo.InvariantCulture);
             }
-            else if (type == typeof(int))
+            else if (type == typeof(int) || type == typeof(int?))
             {
                 return int.Parse(value, CultureInfo.InvariantCulture);
             }

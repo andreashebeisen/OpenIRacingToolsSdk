@@ -23,5 +23,10 @@ namespace OpenIRacingTools.Sdk.Model.Types
         }
 
         public double KpH { get; private set; }
+
+        private object ToDump()
+        {
+            return $"{KpH} kph ({GetType().Name})";
+        }
     }
 }

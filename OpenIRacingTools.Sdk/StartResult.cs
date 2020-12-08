@@ -5,27 +5,26 @@ namespace OpenIRacingTools.Sdk
 {
     public class StartResult
     {
-        public StartResult(SdkWrapper sdk)
-        {
-            ConnectionAwaiter = Task.Run(() =>
-            {
-                while (true)
-                {
-                    if (sdk.IsConnected)
-                    {
-                        return;
-                    }
+        private readonly Task connectionTask;
+        private readonly Task dataTask;
 
-                    Thread.Sleep(10);
-                }
-            });
+        public StartResult(Task connectionTask, Task dataTask)
+        {
+            ConnectionAwaiter = connectionTask;
+            DataAwaiter = dataTask;
         }
 
         public Task ConnectionAwaiter { get; }
+        public Task DataAwaiter { get; }
 
         public void WaitForConnection()
         {
             ConnectionAwaiter.Wait();
+        }
+
+        public void WaitForFirstData()
+        {
+            DataAwaiter.Wait();
         }
     }
 }

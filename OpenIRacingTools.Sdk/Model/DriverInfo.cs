@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace OpenIRacingTools.Sdk.Model
 {
@@ -22,7 +23,7 @@ namespace OpenIRacingTools.Sdk.Model
         public double DriverCarSLBlinkRPM { get; private set; }
         public string DriverCarVersion { get; private set; }
         public double DriverPitTrkPct { get; private set; }
-        public double DriverCarEstLapTime { get; private set; }
+        public TimeSpan DriverCarEstLapTime { get; private set; }
         public string DriverSetupName { get; private set; }
         public bool DriverSetupIsModified { get; private set; }
         public string DriverSetupLoadTypeName { get; private set; }

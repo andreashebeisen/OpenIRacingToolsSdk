@@ -8,5 +8,10 @@
         }
 
         public double Celcius { get; private set; }
+
+        private object ToDump()
+        {
+            return $"{Celcius} °C ({GetType().Name})";
+        }
     }
 }

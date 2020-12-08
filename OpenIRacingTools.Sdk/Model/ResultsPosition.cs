@@ -12,9 +12,9 @@ namespace OpenIRacingTools.Sdk.Model
         public int ClassPosition { get; set; }
         public int CarIdx { get; set; }
         public int Lap { get; set; }
-        public double Time { get; set; }
+        public TimeSpan Time { get; set; }
         public int FastestLap { get; set; }
-        public double FastestTime { get; set; }
+        public TimeSpan FastestTime { get; set; }
         public int LapsLed { get; set; }
         public int LapsComplete { get; set; }
         public int JokerLapsComplete { get; set; }
