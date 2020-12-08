@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace OpenIRacingTools.Sdk.Model
 {
@@ -11,7 +9,7 @@ namespace OpenIRacingTools.Sdk.Model
             UpdateDate = DateTime.Now;
         }
 
-        public DateTime UpdateDate { get; }
+        public DateTime UpdateDate { get; private set; }
         public WeekendInfo WeekendInfo { get; private set; }
         public CameraInfo CameraInfo { get; private set; }
         public RadioInfo RadioInfo { get; private set; }

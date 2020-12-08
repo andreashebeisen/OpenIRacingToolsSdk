@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIRacingTools.Sdk.Native
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIRacingTools.Sdk", "OpenIRacingTools.Sdk\OpenIRacingTools.Sdk.csproj", "{C4127B2E-87E2-4548-8666-ECC79DC041C9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIRacingTools.Sdk.Cli", "OpenIRacingTools.Sdk.Cli\OpenIRacingTools.Sdk.Cli.csproj", "{D6E2A6C4-18DF-41BD-AED0-E75B2A3F8B87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{C4127B2E-87E2-4548-8666-ECC79DC041C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4127B2E-87E2-4548-8666-ECC79DC041C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4127B2E-87E2-4548-8666-ECC79DC041C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6E2A6C4-18DF-41BD-AED0-E75B2A3F8B87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6E2A6C4-18DF-41BD-AED0-E75B2A3F8B87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6E2A6C4-18DF-41BD-AED0-E75B2A3F8B87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6E2A6C4-18DF-41BD-AED0-E75B2A3F8B87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
@@ -16,7 +17,7 @@ namespace OpenIRacingTools.Sdk.Yaml
         {
             var value = parser.Consume<Scalar>().Value;
 
-            return TimeSpan.FromSeconds(double.Parse(value));
+            return TimeSpan.FromSeconds(double.Parse(value, CultureInfo.InvariantCulture));
         }
 
         public void WriteYaml(IEmitter emitter, object value, Type type)

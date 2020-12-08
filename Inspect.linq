@@ -8,7 +8,9 @@
 var sdk = new SdkWrapper();
 sdk.Start().WaitForFirstData();
 
-sdk.SessionInfo.SessionInfo.Dump("SessionInfo.WeekendInfo", null, 1);
+sdk.SessionInfo.DriverInfo.Drivers.Dump();
+
+// sdk.SessionInfo?.SessionInfo?.Dump("SessionInfo.WeekendInfo", null, 1);
 
 // sdk.SessionInfo.DriverInfo.Dump("SessionInfo.DriverInfo", null, 2);
 

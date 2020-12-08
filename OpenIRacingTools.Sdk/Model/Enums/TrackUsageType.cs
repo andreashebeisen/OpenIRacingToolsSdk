@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace OpenIRacingTools.Sdk.Model.Enums
+﻿namespace OpenIRacingTools.Sdk.Model.Enums
 {
     public enum TrackUsageType
     {

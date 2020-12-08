@@ -1,13 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace OpenIRacingTools.Sdk
 {
     public class StartResult
     {
-        private readonly Task connectionTask;
-        private readonly Task dataTask;
-
         public StartResult(Task connectionTask, Task dataTask)
         {
             ConnectionAwaiter = connectionTask;

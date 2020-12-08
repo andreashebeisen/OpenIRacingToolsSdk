@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenIRacingTools.Sdk.Model
 {
     public class ResultsPosition
     {
-        public int Position { get; set; }
-        public int ClassPosition { get; set; }
-        public int CarIdx { get; set; }
-        public int Lap { get; set; }
-        public TimeSpan Time { get; set; }
-        public int FastestLap { get; set; }
-        public TimeSpan FastestTime { get; set; }
-        public int LapsLed { get; set; }
-        public int LapsComplete { get; set; }
-        public int JokerLapsComplete { get; set; }
-        public double LapsDriven { get; set; }
-        public int Incidents { get; set; }
-        public int ReasonOutId { get; set; }
-        public string ReasonOutStr { get; set; }
+        public int Position { get; private set; }
+        public int ClassPosition { get; private set; }
+        public int CarIdx { get; private set; }
+        public int Lap { get; private set; }
+        public TimeSpan Time { get; private set; }
+        public int FastestLap { get; private set; }
+        public TimeSpan FastestTime { get; private set; }
+        public int LapsLed { get; private set; }
+        public int LapsComplete { get; private set; }
+        public int JokerLapsComplete { get; private set; }
+        public double LapsDriven { get; private set; }
+        public int Incidents { get; private set; }
+        public int ReasonOutId { get; private set; }
+        public string ReasonOutStr { get; private set; }
     }
 }

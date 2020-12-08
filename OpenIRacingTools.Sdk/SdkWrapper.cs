@@ -26,8 +26,8 @@ namespace OpenIRacingTools.Sdk
 
         private IDeserializer deserializer;
 
-        private readonly TaskCompletionSource connectionSource = new TaskCompletionSource();
-        private readonly TaskCompletionSource firstDataSource = new TaskCompletionSource();
+        private TaskCompletionSource connectionSource;
+        private TaskCompletionSource firstDataSource;
 
         #endregion
 
@@ -58,6 +58,7 @@ namespace OpenIRacingTools.Sdk
                 .WithTypeConverter(new BooleanTypeConverter())
                 .WithTypeConverter(new EnumTypeConverter())
                 .WithTypeConverter(new ColorTypeConverter())
+                .WithTypeConverter(new TimeSpanTypeConverter())
                 .Build();
         }
 
@@ -167,6 +168,9 @@ namespace OpenIRacingTools.Sdk
             // Create new cancellation token and run the looper
             runningCancellationToken = new CancellationTokenSource();
             Task.Run(() => Loop(runningCancellationToken.Token), runningCancellationToken.Token);
+
+            connectionSource = new TaskCompletionSource();
+            firstDataSource = new TaskCompletionSource();
 
             return new StartResult(connectionSource.Task, firstDataSource.Task);
         }
