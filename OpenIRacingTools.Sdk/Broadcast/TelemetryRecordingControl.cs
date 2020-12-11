@@ -7,7 +7,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
     /// </summary>
     public class TelemetryRecordingControl : BroadcastBase
     {
-        internal TelemetryRecordingControl(SdkWrapper wrapper) : base(wrapper)
+        internal TelemetryRecordingControl(Sdk wrapper) : base(wrapper)
         {
         }
 

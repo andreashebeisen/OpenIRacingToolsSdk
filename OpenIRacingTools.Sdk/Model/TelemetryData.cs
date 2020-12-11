@@ -2,16 +2,16 @@
 using OpenIRacingTools.Sdk.Native;
 using System.Collections.Generic;
 
-namespace OpenIRacingTools.Sdk
+namespace OpenIRacingTools.Sdk.Model
 {
     /// <summary>
     /// Represents an object from which you can get Telemetry var headers by name
     /// </summary>
-    public sealed class TelemetryInfo
+    public sealed class TelemetryData
     {
         private readonly iRacingSDK sdk;
 
-        public TelemetryInfo(iRacingSDK sdk)
+        public TelemetryData(iRacingSDK sdk)
         {
             this.sdk = sdk;
         }

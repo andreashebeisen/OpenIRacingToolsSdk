@@ -3,72 +3,42 @@
     public class CVarHeader
     {
         public enum VarType { irChar, irBool, irInt, irBitField, irFloat, irDouble };
-        VarType type;
-        int offset;
-        int count;
-        string name;
-        string desc;
-        string unit;
 
         public CVarHeader(int type, int offset, int count, string name, string desc, string unit)
         {
-            this.type = (VarType)type;
-            this.offset = offset;
-            this.count = count;
-            this.name = name;
-            this.desc = desc;
-            this.unit = unit;
+            Type = (VarType)type;
+            Offset = offset;
+            Count = count;
+            Name = name;
+            Desc = desc;
+            Unit = unit;
         }
 
-        public VarType Type
-        {
-            get { return type; }
-            //set { type = value; }
-        }
+        public VarType Type { get; }
 
-        public int Offset
-        {
-            get { return offset; }
-            //set { offset = value; }
-        }
+        public int Offset { get; }
 
-        public int Count
-        {
-            get { return count; }
-            //set { count = value; }
-        }
+        public int Count { get; }
 
-        public string Name
-        {
-            get { return name; }
-            //set { name = value; }
-        }
+        public string Name { get; }
 
-        public string Desc
-        {
-            get { return desc; }
-            //set { desc = value; }
-        }
+        public string Desc { get; }
 
-        public string Unit
-        {
-            get { return unit; }
-            //set { unit = value; }
-        }
+        public string Unit { get; }
 
         public int Bytes
         {
             get
             {
-                if (type == VarType.irChar || type == VarType.irBool)
+                if (Type == VarType.irChar || Type == VarType.irBool)
                 {
                     return 1;
                 }
-                else if (type == VarType.irInt || type == VarType.irBitField || type == VarType.irFloat)
+                else if (Type == VarType.irInt || Type == VarType.irBitField || Type == VarType.irFloat)
                 {
                     return 4;
                 }
-                else if (type == VarType.irDouble)
+                else if (Type == VarType.irDouble)
                 {
                     return 8;
                 }
@@ -77,12 +47,6 @@
             }
         }
 
-        public int Length
-        {
-            get
-            {
-                return Bytes * Count;
-            }
-        }
+        public int Length => Bytes * Count;
     }
 }

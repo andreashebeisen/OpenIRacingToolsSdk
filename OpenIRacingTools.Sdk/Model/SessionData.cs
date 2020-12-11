@@ -2,9 +2,9 @@
 
 namespace OpenIRacingTools.Sdk.Model
 {
-    public class SessionInfoWrapper
+    public class SessionData
     {
-        public SessionInfoWrapper()
+        public SessionData()
         {
             UpdateDate = DateTime.Now;
         }

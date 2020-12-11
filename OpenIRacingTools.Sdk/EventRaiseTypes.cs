@@ -1,6 +1,6 @@
 ﻿namespace OpenIRacingTools.Sdk
 {
-    public sealed partial class SdkWrapper
+    public sealed partial class Sdk
     {
         #region Enums
 

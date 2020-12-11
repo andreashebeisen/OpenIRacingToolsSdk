@@ -26,62 +26,26 @@ namespace OpenIRacingTools.Sdk.Native
             buffer = new CVarBuf(mapView, this);
         }
 
-        public int Version
-        {
-            get { return FileMapView.ReadInt32(HVerOffset); }
-        }
+        public int Version => FileMapView.ReadInt32(HVerOffset);
 
-        public int Status
-        {
-            get { return FileMapView.ReadInt32(HStatusOffset); }
-        }
+        public int Status => FileMapView.ReadInt32(HStatusOffset);
 
-        public int TickRate
-        {
-            get { return FileMapView.ReadInt32(HTickRateOffset); }
-        }
+        public int TickRate => FileMapView.ReadInt32(HTickRateOffset);
 
-        public int SessionInfoUpdate
-        {
-            get { return FileMapView.ReadInt32(HSesInfoUpdateOffset); }
-        }
+        public int SessionInfoUpdate => FileMapView.ReadInt32(HSesInfoUpdateOffset);
 
-        public int SessionInfoLength
-        {
-            get { return FileMapView.ReadInt32(HSesInfoLenOffset); }
-        }
+        public int SessionInfoLength => FileMapView.ReadInt32(HSesInfoLenOffset);
 
-        public int SessionInfoOffset
-        {
-            get { return FileMapView.ReadInt32(HSesInfoOffsetOffset); }
-        }
+        public int SessionInfoOffset => FileMapView.ReadInt32(HSesInfoOffsetOffset);
 
-        public int VarCount
-        {
-            get { return FileMapView.ReadInt32(HNumVarsOffset); }
-        }
+        public int VarCount => FileMapView.ReadInt32(HNumVarsOffset);
 
-        public int VarHeaderOffset
-        {
-            get { return FileMapView.ReadInt32(HVarHeaderOffsetOffset); }
-        }
+        public int VarHeaderOffset => FileMapView.ReadInt32(HVarHeaderOffsetOffset);
 
-        public int BufferCount
-        {
-            get { return FileMapView.ReadInt32(HNumBufOffset); }
-        }
+        public int BufferCount => FileMapView.ReadInt32(HNumBufOffset);
 
-        public int BufferLength
-        {
-            get { return FileMapView.ReadInt32(HBufLenOffset); }
-        }
+        public int BufferLength => FileMapView.ReadInt32(HBufLenOffset);
 
-        public int Buffer
-        {
-            get
-            {
-                return buffer.OffsetLatest;
-            }
-        }
+        public int Buffer => buffer.OffsetLatest;
     }
 }

@@ -7,7 +7,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
     /// </summary>
     public class PitCommandControl : BroadcastBase
     {
-        internal PitCommandControl(SdkWrapper wrapper) : base(wrapper)
+        internal PitCommandControl(Sdk wrapper) : base(wrapper)
         {
         }
 

@@ -7,7 +7,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
     /// </summary>
     public class TextureControl : BroadcastBase
     {
-        internal TextureControl(SdkWrapper wrapper) : base(wrapper)
+        internal TextureControl(Sdk wrapper) : base(wrapper)
         {
         }
 

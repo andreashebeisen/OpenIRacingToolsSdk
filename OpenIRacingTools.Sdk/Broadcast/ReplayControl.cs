@@ -8,7 +8,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
     /// </summary>
     public class ReplayControl : BroadcastBase
     {
-        public ReplayControl(SdkWrapper wrapper) : base(wrapper)
+        public ReplayControl(Sdk wrapper) : base(wrapper)
         {
         }
 

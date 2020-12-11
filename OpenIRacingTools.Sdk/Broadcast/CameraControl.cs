@@ -8,7 +8,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
     /// </summary>
     public class CameraControl : BroadcastBase
     {
-        internal CameraControl(SdkWrapper wrapper) : base(wrapper)
+        internal CameraControl(Sdk wrapper) : base(wrapper)
         {
         }
 

@@ -1,13 +1,15 @@
-﻿namespace OpenIRacingTools.Sdk.Events
+﻿using OpenIRacingTools.Sdk.Model;
+
+namespace OpenIRacingTools.Sdk.Events
 {
     public class TelemetryInfoChangedEventArgs : ChangedEventArgs
     {
-        public TelemetryInfoChangedEventArgs(TelemetryInfo info, double time)
+        public TelemetryInfoChangedEventArgs(TelemetryData info, double time)
             : base(time)
         {
             TelemetryInfo = info;
         }
 
-        public TelemetryInfo TelemetryInfo { get; }
+        public TelemetryData TelemetryInfo { get; }
     }
 }

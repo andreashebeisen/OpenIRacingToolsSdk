@@ -8,7 +8,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
     /// </summary>
     public class ChatControl : BroadcastBase
     {
-        internal ChatControl(SdkWrapper wrapper) : base(wrapper)
+        internal ChatControl(Sdk wrapper) : base(wrapper)
         {
         }
 

@@ -5,10 +5,24 @@
   <Namespace>System.Drawing</Namespace>
 </Query>
 
-var sdk = new SdkWrapper();
-sdk.Start().WaitForFirstData();
-
-sdk.SessionInfo.DriverInfo.Drivers.Dump();
+using (var sdk = new Sdk()) {
+	sdk.Start().WaitForFirstData();
+	
+	var result = from p in sdk.SessionData.SessionInfo.Sessions.Last().ResultsPositions
+				 let d = sdk.SessionData.DriverInfo.Drivers.Single(x => x.CarIdx == p.CarIdx)
+				 select new {
+				  Position = p.ClassPosition,
+				  PositionTotal = p.Position,
+				  Name = d.AbbrevName,
+				  Team = d.TeamName
+				 };
+	
+	result.Dump();
+	
+	sdk.SessionData.Dump();
+	
+	sdk.TelemetryData.Dump();
+}
 
 // sdk.SessionInfo?.SessionInfo?.Dump("SessionInfo.WeekendInfo", null, 1);
 

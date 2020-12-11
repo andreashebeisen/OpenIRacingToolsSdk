@@ -4,9 +4,9 @@ namespace OpenIRacingTools.Sdk.Broadcast
 {
     public abstract class BroadcastBase
     {
-        private readonly SdkWrapper _wrapper;
+        private readonly Sdk _wrapper;
 
-        internal BroadcastBase(SdkWrapper wrapper)
+        internal BroadcastBase(Sdk wrapper)
         {
             _wrapper = wrapper;
         }

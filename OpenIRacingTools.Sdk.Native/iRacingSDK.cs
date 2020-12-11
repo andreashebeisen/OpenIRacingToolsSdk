@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO.MemoryMappedFiles;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 
 namespace OpenIRacingTools.Sdk.Native
@@ -47,6 +48,8 @@ namespace OpenIRacingTools.Sdk.Native
 
     public class iRacingSDK
     {
+        private Encoding encoding;
+
         //VarHeader offsets
         public const int VarOffsetOffset = 4;
         public const int VarCountOffset = 8;
@@ -54,7 +57,6 @@ namespace OpenIRacingTools.Sdk.Native
         public const int VarDescOffset = 48;
         public const int VarUnitOffset = 112;
         public int VarHeaderSize = 144;
-
 
         public bool IsInitialized = false;
 
@@ -64,6 +66,13 @@ namespace OpenIRacingTools.Sdk.Native
         public CiRSDKHeader Header = null;
         public Dictionary<string, CVarHeader> VarHeaders = new Dictionary<string, CVarHeader>();
         //List<CVarHeader> VarHeaders = new List<CVarHeader>();
+
+        public iRacingSDK()
+        {
+            // Register CP1252 encoding
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            encoding = Encoding.GetEncoding(1252);
+        }
 
         public bool Startup()
         {
@@ -114,9 +123,9 @@ namespace OpenIRacingTools.Sdk.Native
                 FileMapView.ReadArray<byte>(Header.VarHeaderOffset + ((i * VarHeaderSize) + VarNameOffset), name, 0, Defines.MaxString);
                 FileMapView.ReadArray<byte>(Header.VarHeaderOffset + ((i * VarHeaderSize) + VarDescOffset), desc, 0, Defines.MaxDesc);
                 FileMapView.ReadArray<byte>(Header.VarHeaderOffset + ((i * VarHeaderSize) + VarUnitOffset), unit, 0, Defines.MaxString);
-                string nameStr = System.Text.Encoding.Default.GetString(name).TrimEnd(new char[] { '\0' });
-                string descStr = System.Text.Encoding.Default.GetString(desc).TrimEnd(new char[] { '\0' });
-                string unitStr = System.Text.Encoding.Default.GetString(unit).TrimEnd(new char[] { '\0' });
+                string nameStr = encoding.GetString(name).TrimEnd(new char[] { '\0' });
+                string descStr = encoding.GetString(desc).TrimEnd(new char[] { '\0' });
+                string unitStr = encoding.GetString(unit).TrimEnd(new char[] { '\0' });
                 VarHeaders[nameStr] = new CVarHeader(type, offset, count, nameStr, descStr, unitStr);
             }
         }
@@ -133,7 +142,7 @@ namespace OpenIRacingTools.Sdk.Native
                     {
                         byte[] data = new byte[count];
                         FileMapView.ReadArray<byte>(Header.Buffer + varOffset, data, 0, count);
-                        return System.Text.Encoding.Default.GetString(data).TrimEnd(new char[] { '\0' });
+                        return encoding.GetString(data).TrimEnd(new char[] { '\0' });
                     }
                     else if (VarHeaders[name].Type == CVarHeader.VarType.irBool)
                     {
@@ -198,7 +207,7 @@ namespace OpenIRacingTools.Sdk.Native
             {
                 byte[] data = new byte[Header.SessionInfoLength];
                 FileMapView.ReadArray<byte>(Header.SessionInfoOffset, data, 0, Header.SessionInfoLength);
-                return System.Text.Encoding.Default.GetString(data).TrimEnd(new char[] { '\0' });
+                return encoding.GetString(data).TrimEnd(new char[] { '\0' });
             }
             return null;
         }
@@ -253,39 +262,5 @@ namespace OpenIRacingTools.Sdk.Native
         {
             return (int)(((ushort)lowPart) | (uint)(highPart << 16));
         }
-    }
-
-    //144 bytes
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct VarHeader
-    {
-        //16 bytes: offset = 0
-        public int type;
-        //offset = 4
-        public int offset;
-        //offset = 8
-        public int count;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)]
-        public int[] pad;
-
-        //32 bytes: offset = 16
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Defines.MaxString)]
-        public string name;
-        //64 bytes: offset = 48
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Defines.MaxDesc)]
-        public string desc;
-        //32 bytes: offset = 112
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Defines.MaxString)]
-        public string unit;
-    }
-
-    //32 bytes
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct VarBuf
-    {
-        public int tickCount;
-        public int bufOffset;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-        public int[] pad;
     }
 }

@@ -1,57 +1,53 @@
-﻿using OpenIRacingTools.Sdk.Native;
+﻿using OpenIRacingTools.Sdk.Model;
+using OpenIRacingTools.Sdk.Native;
 using System;
 
-namespace OpenIRacingTools.Sdk
+namespace OpenIRacingTools.Sdk.Model
 {
     public abstract class TelemetryValue
     {
-        protected TelemetryValue(OpenIRacingTools.Sdk.Native.iRacingSDK sdk, string name)
+        protected TelemetryValue(iRacingSDK sdk, string name)
         {
             if (sdk == null)
             {
                 throw new ArgumentNullException("sdk");
             }
 
-            _exists = sdk.VarHeaders.ContainsKey(name);
-            if (_exists)
+            Exists = sdk.VarHeaders.ContainsKey(name);
+            if (Exists)
             {
                 var header = sdk.VarHeaders[name];
-                _name = name;
-                _description = header.Desc;
-                _unit = header.Unit;
-                _type = header.Type;
+                Name = name;
+                Description = header.Desc;
+                Unit = header.Unit;
+                Type = header.Type;
             }
         }
 
-        private readonly bool _exists;
         /// <summary>
         /// Whether or not a telemetry value with this name exists on the current car.
         /// </summary>
-        public bool Exists { get { return _exists; } }
+        public bool Exists { get; }
 
-        private readonly string _name;
         /// <summary>
         /// The name of this telemetry value parameter.
         /// </summary>
-        public string Name { get { return _name; } }
+        public string Name { get; }
 
-        private readonly string _description;
         /// <summary>
         /// The description of this parameter.
         /// </summary>
-        public string Description { get { return _description; } }
+        public string Description { get; }
 
-        private readonly string _unit;
         /// <summary>
         /// The real world unit for this parameter.
         /// </summary>
-        public string Unit { get { return _unit; } }
+        public string Unit { get; }
 
-        private readonly CVarHeader.VarType _type;
         /// <summary>
         /// The data-type for this parameter.
         /// </summary>
-        public CVarHeader.VarType Type { get { return _type; } }
+        public CVarHeader.VarType Type { get; }
 
         public abstract object GetValue();
     }
@@ -62,7 +58,7 @@ namespace OpenIRacingTools.Sdk
     /// <typeparam name="T">The .NET type of this parameter (int, char, float, double, bool, or arrays)</typeparam>
     public sealed class TelemetryValue<T> : TelemetryValue
     {
-        public TelemetryValue(OpenIRacingTools.Sdk.Native.iRacingSDK sdk, string name)
+        public TelemetryValue(iRacingSDK sdk, string name)
             : base(sdk, name)
         {
             GetData(sdk);
@@ -77,11 +73,11 @@ namespace OpenIRacingTools.Sdk
                 var type = typeof(T);
                 if (type.BaseType != null && type.BaseType.IsGenericType/* && type.BaseType.GetGenericTypeDefinition() == typeof(BitfieldBase<>)*/)
                 {
-                    _Value = (T)Activator.CreateInstance(type, new[] { data });
+                    Value = (T)Activator.CreateInstance(type, new[] { data });
                 }
                 else
                 {
-                    _Value = (T)data;
+                    Value = (T)data;
                 }
             }
             catch (Exception)
@@ -89,11 +85,10 @@ namespace OpenIRacingTools.Sdk
             }
         }
 
-        private T _Value;
         /// <summary>
         /// The value of this parameter.
         /// </summary>
-        public T Value { get { return _Value; } }
+        public T Value { get; private set; }
 
         public override object GetValue()
         {

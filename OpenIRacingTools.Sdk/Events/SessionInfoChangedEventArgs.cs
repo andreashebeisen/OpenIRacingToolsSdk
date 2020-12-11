@@ -4,12 +4,12 @@ namespace OpenIRacingTools.Sdk.Events
 {
     public class SessionInfoChangedEventArgs : ChangedEventArgs
     {
-        public SessionInfoChangedEventArgs(SessionInfoWrapper info, double time)
+        public SessionInfoChangedEventArgs(SessionData info, double time)
             : base(time)
         {
             SessionInfo = info;
         }
 
-        public SessionInfoWrapper SessionInfo { get; set; }
+        public SessionData SessionInfo { get; set; }
     }
 }

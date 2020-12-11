@@ -13,13 +13,13 @@ namespace OpenIRacingTools.Sdk.Cli
 
         private static void MonitorSim()
         {
-            var sdk = new SdkWrapper();
+            var sdk = new Sdk();
             sdk.Start().WaitForConnection();
 
             while(true)
             {
-                var data = sdk.SessionInfo;
-                var raw = sdk.SessionInfoRaw;
+                var data = sdk.SessionData;
+                var raw = sdk.RawSessionData;
 
                 if (!string.IsNullOrEmpty(raw)) { 
                     File.WriteAllText(@"C:\Users\matth\Downloads\iRacingSessionData\" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".yaml", raw);

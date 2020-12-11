@@ -8,5 +8,6 @@
         DirtOval,
         LongOval,
         SuperSpeedway,
+        MediumOval,
     }
 }

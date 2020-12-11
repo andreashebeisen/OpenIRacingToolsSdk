@@ -13,7 +13,7 @@ namespace OpenIRacingTools.Sdk
     /// <summary>
     /// Provides a useful wrapper of the iRacing SDK.
     /// </summary>
-    public sealed partial class SdkWrapper
+    public sealed partial class Sdk : IDisposable
     {
         #region Fields
 
@@ -34,7 +34,7 @@ namespace OpenIRacingTools.Sdk
         /// <summary>
         /// Creates a new instance of the SdkWrapper.
         /// </summary>
-        public SdkWrapper()
+        public Sdk()
         {
             context = SynchronizationContext.Current;
             sdk = new iRacingSDK();
@@ -113,11 +113,11 @@ namespace OpenIRacingTools.Sdk
         /// </summary>
         public int ConnectSleepTime { get; set; } = 1000;
 
-        public SessionInfoWrapper SessionInfo { get; private set; }
+        public SessionData SessionData { get; private set; }
 
-        public TelemetryInfo TelemetryInfo { get; private set; }
+        public TelemetryData TelemetryData { get; private set; }
 
-        public string SessionInfoRaw { get; private set; }
+        public string RawSessionData { get; private set; }
 
         #region Broadcast messages
 
@@ -207,7 +207,7 @@ namespace OpenIRacingTools.Sdk
                     if (!IsConnected)
                     {
                         // If this is the first time, raise the Connected event
-                        RaiseEvent(OnConnected, EventArgs.Empty);
+                        RaiseEvent(OnStarted, EventArgs.Empty);
                         connectionSource.SetResult();
                     }
 
@@ -218,9 +218,9 @@ namespace OpenIRacingTools.Sdk
 
                     // Update telemetry info
 
-                    TelemetryInfo = new TelemetryInfo(sdk);
+                    TelemetryData = new TelemetryData(sdk);
 
-                    var telArgs = new TelemetryInfoChangedEventArgs(TelemetryInfo, (double)sdk.GetData("SessionTime"));
+                    var telArgs = new TelemetryInfoChangedEventArgs(TelemetryData, (double)sdk.GetData("SessionTime"));
                     RaiseEvent(OnTelemetryInfoChanged, telArgs);
 
                     // Update session info
@@ -228,10 +228,10 @@ namespace OpenIRacingTools.Sdk
                     int newUpdate = sdk.Header.SessionInfoUpdate;
                     if (newUpdate != lastUpdate)
                     {
-                        SessionInfoRaw = sdk.GetSessionInfo();
-                        SessionInfo = deserializer.Deserialize<SessionInfoWrapper>(SessionInfoRaw);
+                        RawSessionData = sdk.GetSessionInfo();
+                        SessionData = deserializer.Deserialize<SessionData>(RawSessionData);
 
-                        var args = new SessionInfoChangedEventArgs(SessionInfo, (double)sdk.GetData("SessionTime"));
+                        var args = new SessionInfoChangedEventArgs(SessionData, (double)sdk.GetData("SessionTime"));
                         RaiseEvent(OnSessionInfoChanged, args);
 
                         if (lastUpdate == -1)
@@ -245,7 +245,7 @@ namespace OpenIRacingTools.Sdk
                 else if (hasConnected)
                 {
                     // We have already been initialized before, so the sim is closing
-                    RaiseEvent(OnDisconnected, EventArgs.Empty);
+                    RaiseEvent(OnStopped, EventArgs.Empty);
 
                     sdk.Shutdown();
                     lastUpdate = -1;
@@ -299,12 +299,12 @@ namespace OpenIRacingTools.Sdk
         /// <summary>
         /// Event raised when the SDK detects the sim for the first time.
         /// </summary>
-        public event EventHandler Connected;
+        public event EventHandler Started;
 
         /// <summary>
         /// Event raised when the SDK no longer detects the sim (sim closed).
         /// </summary>
-        public event EventHandler Disconnected;
+        public event EventHandler Stopped;
 
         private void RaiseEvent<T>(Action<T> del, T e)
             where T : EventArgs
@@ -327,9 +327,9 @@ namespace OpenIRacingTools.Sdk
         private void OnTelemetryInfoChanged(TelemetryInfoChangedEventArgs e) => TelemetryInfoChanged?.Invoke(this, e);
         private void OnSessionInfoChanged(SessionInfoChangedEventArgs e) => SessionInfoChanged?.Invoke(this, e);
 
-        private void OnConnected(EventArgs e) => Connected?.Invoke(this, e);
+        private void OnStarted(EventArgs e) => Started?.Invoke(this, e);
 
-        private void OnDisconnected(EventArgs e) => Disconnected?.Invoke(this, e);
+        private void OnStopped(EventArgs e) => Stopped?.Invoke(this, e);
 
         #endregion
 
@@ -342,6 +342,11 @@ namespace OpenIRacingTools.Sdk
         internal int BroadcastMessage(BroadcastMessageTypes msg, int var1, int var2, int var3)
         {
             return sdk.BroadcastMessage(msg, var1, var2, var3);
+        }
+
+        public void Dispose()
+        {
+            runningCancellationToken?.Cancel();
         }
     }
 }

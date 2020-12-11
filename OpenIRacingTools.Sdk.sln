@@ -16,6 +16,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIRacingTools.Sdk", "Ope
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIRacingTools.Sdk.Cli", "OpenIRacingTools.Sdk.Cli\OpenIRacingTools.Sdk.Cli.csproj", "{D6E2A6C4-18DF-41BD-AED0-E75B2A3F8B87}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{93B9730F-4D2B-47BA-B1B8-154CE8D29036}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{661612BE-7FBF-4916-970D-992F007E30A9}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +44,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{93B9730F-4D2B-47BA-B1B8-154CE8D29036} = {76A575E7-EC4A-4C1F-B33C-940D38D5E28F}
+		{661612BE-7FBF-4916-970D-992F007E30A9} = {93B9730F-4D2B-47BA-B1B8-154CE8D29036}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F8A9844-78B7-4E39-AB43-947BD6290D4D}
