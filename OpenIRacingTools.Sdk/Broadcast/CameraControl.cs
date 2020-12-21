@@ -1,5 +1,5 @@
 ﻿using OpenIRacingTools.Sdk.Model.Enums;
-using OpenIRacingTools.Sdk.Native;
+using OpenIRacingTools.Sdk.Native.Enums;
 
 namespace OpenIRacingTools.Sdk.Broadcast
 {
@@ -43,7 +43,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// <param name="group">The camera group to use.</param>
         public void SwitchToPosition(int position, int group)
         {
-            Broadcast(BroadcastMessageTypes.CamSwitchPos, position, group, 0);
+            Broadcast(BroadcastMessageType.CamSwitchPos, position, group, 0);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// <param name="group">The camera group to use.</param>
         public void SwitchToCar(int carNumberRaw, int group)
         {
-            Broadcast(BroadcastMessageTypes.CamSwitchNum, carNumberRaw, group, 0);
+            Broadcast(BroadcastMessageType.CamSwitchNum, carNumberRaw, group, 0);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// <param name="group">The camera group to use.</param>
         public void SwitchGroup(int group)
         {
-            Broadcast(BroadcastMessageTypes.CamSwitchPos, 0, group, 0);
+            Broadcast(BroadcastMessageType.CamSwitchPos, 0, group, 0);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// <param name="state">A combination of specified states as a bitfield.</param>
         public void SetCameraState(CameraStates state)
         {
-            Broadcast(BroadcastMessageTypes.CamSetState, (int)state, 0);
+            Broadcast(BroadcastMessageType.CamSetState, (int)state, 0);
         }
     }
 }

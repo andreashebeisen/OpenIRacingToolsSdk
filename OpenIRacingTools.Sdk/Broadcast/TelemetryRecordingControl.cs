@@ -1,4 +1,5 @@
 ﻿using OpenIRacingTools.Sdk.Native;
+using OpenIRacingTools.Sdk.Native.Enums;
 
 namespace OpenIRacingTools.Sdk.Broadcast
 {
@@ -16,7 +17,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void Start()
         {
-            Broadcast(BroadcastMessageTypes.TelemCommand, (int)TelemCommandModeTypes.Start, 0, 0);
+            Broadcast(BroadcastMessageType.TelemCommand, (int)TelemCommandModeTypes.Start, 0, 0);
         }
 
         /// <summary>
@@ -24,7 +25,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void Stop()
         {
-            Broadcast(BroadcastMessageTypes.TelemCommand, (int)TelemCommandModeTypes.Stop, 0, 0);
+            Broadcast(BroadcastMessageType.TelemCommand, (int)TelemCommandModeTypes.Stop, 0, 0);
         }
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void StartNewFile()
         {
-            Broadcast(BroadcastMessageTypes.TelemCommand, (int)TelemCommandModeTypes.Restart, 0, 0);
+            Broadcast(BroadcastMessageType.TelemCommand, (int)TelemCommandModeTypes.Restart, 0, 0);
         }
     }
 }

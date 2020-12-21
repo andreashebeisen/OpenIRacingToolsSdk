@@ -1,4 +1,4 @@
-﻿using OpenIRacingTools.Sdk.Native;
+﻿using OpenIRacingTools.Sdk.Native.Enums;
 using System;
 
 namespace OpenIRacingTools.Sdk.Broadcast
@@ -17,7 +17,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void Clear()
         {
-            Broadcast(BroadcastMessageTypes.ChatCommand, (int)ChatCommandModeTypes.Cancel, 0);
+            Broadcast(BroadcastMessageType.ChatCommand, (int)ChatCommand.Cancel, 0);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void Reply()
         {
-            Broadcast(BroadcastMessageTypes.ChatCommand, (int)ChatCommandModeTypes.Reply, 0);
+            Broadcast(BroadcastMessageType.ChatCommand, (int)ChatCommand.Reply, 0);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void Activate()
         {
-            Broadcast(BroadcastMessageTypes.ChatCommand, (int)ChatCommandModeTypes.BeginChat, 0);
+            Broadcast(BroadcastMessageType.ChatCommand, (int)ChatCommand.BeginChat, 0);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
                 throw new ArgumentOutOfRangeException("macro", "Macro must be between 0 and 14.");
             }
 
-            Broadcast(BroadcastMessageTypes.ChatCommand, (int)ChatCommandModeTypes.Macro, macro, 0);
+            Broadcast(BroadcastMessageType.ChatCommand, (int)ChatCommand.Macro, macro, 0);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using OpenIRacingTools.Sdk.Native;
+﻿using OpenIRacingTools.Sdk.Native.Enums;
 
 namespace OpenIRacingTools.Sdk.Broadcast
 {
@@ -16,7 +16,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void Reload()
         {
-            Broadcast(BroadcastMessageTypes.ReloadTextures, (int)ReloadTexturesModeTypes.All, 0, 0);
+            Broadcast(BroadcastMessageType.ReloadTextures, (int)ReloadTexturesMode.All, 0, 0);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// <param name="carIdx">The ID (0-64) of the car to reload.</param>
         public void Reload(int carIdx)
         {
-            Broadcast(BroadcastMessageTypes.ReloadTextures, (int)ReloadTexturesModeTypes.CarIdx, carIdx, 0);
+            Broadcast(BroadcastMessageType.ReloadTextures, (int)ReloadTexturesMode.CarIdx, carIdx, 0);
         }
     }
 }

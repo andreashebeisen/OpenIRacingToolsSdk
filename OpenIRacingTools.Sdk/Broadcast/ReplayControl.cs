@@ -1,4 +1,4 @@
-﻿using OpenIRacingTools.Sdk.Native;
+﻿using OpenIRacingTools.Sdk.Native.Enums;
 using System;
 
 namespace OpenIRacingTools.Sdk.Broadcast
@@ -18,8 +18,8 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// <param name="frameFromBeginning"></param>
         public void SetPosition(int frameFromBeginning)
         {
-            Broadcast(BroadcastMessageTypes.ReplaySetPlayPosition,
-                (int)ReplayPositionModeTypes.Begin,
+            Broadcast(BroadcastMessageType.ReplaySetPlayPosition,
+                (int)ReplayPosition.Begin,
                 frameFromBeginning);
         }
 
@@ -29,8 +29,8 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// <param name="frameFromEnd"></param>
         public void SetPositionFromEnd(int frameFromEnd)
         {
-            Broadcast(BroadcastMessageTypes.ReplaySetPlayPosition,
-                (int)ReplayPositionModeTypes.End,
+            Broadcast(BroadcastMessageType.ReplaySetPlayPosition,
+                (int)ReplayPosition.End,
                 frameFromEnd);
         }
 
@@ -39,7 +39,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void JumpToLive()
         {
-            Jump(ReplaySearchModeTypes.ToEnd);
+            Jump(ReplaySearchMode.ToEnd);
         }
 
         /// <summary>
@@ -47,16 +47,16 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void JumpToStart()
         {
-            Jump(ReplaySearchModeTypes.ToStart);
+            Jump(ReplaySearchMode.ToStart);
         }
 
         /// <summary>
         /// Jump to a specific event.
         /// </summary>
         /// <param name="replayEvent">The event to jump to.</param>
-        public void Jump(ReplaySearchModeTypes replayEvent)
+        public void Jump(ReplaySearchMode replayEvent)
         {
-            Broadcast(BroadcastMessageTypes.ReplaySearch,
+            Broadcast(BroadcastMessageType.ReplaySearch,
                 (int)replayEvent, 0);
         }
 
@@ -93,7 +93,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
                 throw new ArgumentOutOfRangeException("speed", "Replay speed must be between -16 and 16.");
             }
 
-            Broadcast(BroadcastMessageTypes.ReplaySetPlaySpeed,
+            Broadcast(BroadcastMessageType.ReplaySetPlaySpeed,
                 speed, slowmo ? 1 : 0, 0);
         }
     }

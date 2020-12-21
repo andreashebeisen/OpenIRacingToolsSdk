@@ -2,6 +2,7 @@
 using OpenIRacingTools.Sdk.Events;
 using OpenIRacingTools.Sdk.Model;
 using OpenIRacingTools.Sdk.Native;
+using OpenIRacingTools.Sdk.Native.Enums;
 using OpenIRacingTools.Sdk.Yaml;
 using System;
 using System.Threading;
@@ -339,12 +340,12 @@ namespace OpenIRacingTools.Sdk
         #endregion
 
 
-        internal int BroadcastMessage(BroadcastMessageTypes msg, int var1, int var2)
+        internal int BroadcastMessage(BroadcastMessageType msg, int var1, int var2)
         {
             return sdk.BroadcastMessage(msg, var1, var2);
         }
 
-        internal int BroadcastMessage(BroadcastMessageTypes msg, int var1, int var2, int var3)
+        internal int BroadcastMessage(BroadcastMessageType msg, int var1, int var2, int var3)
         {
             return sdk.BroadcastMessage(msg, var1, var2, var3);
         }

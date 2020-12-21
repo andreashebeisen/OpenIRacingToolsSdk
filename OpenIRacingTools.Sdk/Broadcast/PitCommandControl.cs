@@ -1,4 +1,4 @@
-﻿using OpenIRacingTools.Sdk.Native;
+﻿using OpenIRacingTools.Sdk.Native.Enums;
 
 namespace OpenIRacingTools.Sdk.Broadcast
 {
@@ -17,12 +17,12 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// <param name="amount">The amount of fuel (in liters) to add. Use 0 to leave at current value.</param>
         public void AddFuel(int amount)
         {
-            Broadcast(BroadcastMessageTypes.PitCommand, (int)PitCommandModeTypes.Fuel, amount, 0);
+            Broadcast(BroadcastMessageType.PitCommand, (int)PitCommand.Fuel, amount, 0);
         }
 
-        private void ChangeTire(PitCommandModeTypes type, int pressure)
+        private void ChangeTire(PitCommand type, int pressure)
         {
-            Broadcast(BroadcastMessageTypes.PitCommand, (int)type, pressure);
+            Broadcast(BroadcastMessageType.PitCommand, (int)type, pressure);
         }
 
         /// <summary>
@@ -33,22 +33,22 @@ namespace OpenIRacingTools.Sdk.Broadcast
         {
             if (change.LeftFront != null && change.LeftFront.Change)
             {
-                ChangeTire(PitCommandModeTypes.LF, change.LeftFront.Pressure);
+                ChangeTire(PitCommand.LF, change.LeftFront.Pressure);
             }
 
             if (change.RightFront != null && change.RightFront.Change)
             {
-                ChangeTire(PitCommandModeTypes.RF, change.RightFront.Pressure);
+                ChangeTire(PitCommand.RF, change.RightFront.Pressure);
             }
 
             if (change.LeftRear != null && change.LeftRear.Change)
             {
-                ChangeTire(PitCommandModeTypes.LR, change.LeftRear.Pressure);
+                ChangeTire(PitCommand.LR, change.LeftRear.Pressure);
             }
 
             if (change.RightRear != null && change.RightRear.Change)
             {
-                ChangeTire(PitCommandModeTypes.RR, change.RightRear.Pressure);
+                ChangeTire(PitCommand.RR, change.RightRear.Pressure);
             }
         }
 
@@ -57,7 +57,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void Tearoff()
         {
-            Broadcast(BroadcastMessageTypes.PitCommand, (int)PitCommandModeTypes.WS, 0);
+            Broadcast(BroadcastMessageType.PitCommand, (int)PitCommand.WS, 0);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void FastRepair()
         {
-            Broadcast(BroadcastMessageTypes.PitCommand, (int)PitCommandModeTypes.FastRepair, 0);
+            Broadcast(BroadcastMessageType.PitCommand, (int)PitCommand.FastRepair, 0);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void Clear()
         {
-            Broadcast(BroadcastMessageTypes.PitCommand, (int)PitCommandModeTypes.Clear, 0);
+            Broadcast(BroadcastMessageType.PitCommand, (int)PitCommand.Clear, 0);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
         /// </summary>
         public void ClearTires()
         {
-            Broadcast(BroadcastMessageTypes.PitCommand, (int)PitCommandModeTypes.ClearTires, 0);
+            Broadcast(BroadcastMessageType.PitCommand, (int)PitCommand.ClearTires, 0);
         }
 
         public class Tire

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenIRacingTools.Sdk.Native.Enums;
+using System;
 using System.Collections.Generic;
 using System.IO.MemoryMappedFiles;
 using System.Runtime.InteropServices;
@@ -7,27 +8,6 @@ using System.Threading;
 
 namespace OpenIRacingTools.Sdk.Native
 {
-    public enum BroadcastMessageTypes { CamSwitchPos = 0, CamSwitchNum, CamSetState, ReplaySetPlaySpeed, ReplaySetPlayPosition, ReplaySearch, ReplaySetState, ReloadTextures, ChatCommand, PitCommand, TelemCommand };
-    public enum CamSwitchModeTypes { FocusAtIncident = -3, FocusAtLeader = -2, FocusAtExciting = -1, FocusAtDriver = 0 };
-    public enum CameraStateTypes { None = 0x0000, IsSessionScreen = 0x0001, IsScenicActive = 0x0002, CamToolActive = 0x0004, UIHidden = 0x0008, UseAutoShotSelection = 0x0010, UseTemporaryEdits = 0x0020, UseKeyAcceleration = 0x0040, UseKey10xAcceleration = 0x0080, UseMouseAimMode = 0x0100 };
-    public enum ReplayPositionModeTypes { Begin = 0, Current, End };
-    public enum ReplaySearchModeTypes { ToStart = 0, ToEnd, PreviousSession, NextSession, PreviousLap, NextLap, PreviousFrame, NextFrame, PreviousIncident, NextIncident };
-    public enum ReplayStateModeTypes { Erasetape = 0 };
-    public enum ReloadTexturesModeTypes { All = 0, CarIdx };
-    public enum ChatCommandModeTypes { Macro = 0, BeginChat, Reply, Cancel };
-
-    public enum PitCommandModeTypes
-    {
-        Clear = 0,
-        WS = 1,
-        Fuel = 2,
-        LF = 3,
-        RF = 4,
-        LR = 5,
-        RR = 6,
-        ClearTires = 7,
-        FastRepair = 8
-    };
 
     public enum TelemCommandModeTypes { Stop = 0, Start, Restart };
 
@@ -58,14 +38,8 @@ namespace OpenIRacingTools.Sdk.Native
         public const int VarUnitOffset = 112;
         public int VarHeaderSize = 144;
 
-        public bool IsInitialized = false;
-
-        MemoryMappedFile iRacingFile;
-        MemoryMappedViewAccessor FileMapView;
-
-        public CiRSDKHeader Header = null;
-        public Dictionary<string, CVarHeader> VarHeaders = new Dictionary<string, CVarHeader>();
-        //List<CVarHeader> VarHeaders = new List<CVarHeader>();
+        private MemoryMappedFile iRacingFile;
+        private MemoryMappedViewAccessor FileMapView;
 
         public iRacingSDK()
         {
@@ -73,6 +47,12 @@ namespace OpenIRacingTools.Sdk.Native
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             encoding = Encoding.GetEncoding(1252);
         }
+
+        public CiRSDKHeader Header { get; private set; }
+
+        public bool IsInitialized { get; private set; }
+
+        public Dictionary<string, CVarHeader> VarHeaders { get; } = new Dictionary<string, CVarHeader>();
 
         public bool Startup()
         {
@@ -106,6 +86,7 @@ namespace OpenIRacingTools.Sdk.Native
             {
                 return false;
             }
+
             return true;
         }
 
@@ -114,15 +95,15 @@ namespace OpenIRacingTools.Sdk.Native
             VarHeaders.Clear();
             for (int i = 0; i < Header.VarCount; i++)
             {
-                int type = FileMapView.ReadInt32(Header.VarHeaderOffset + ((i * VarHeaderSize)));
-                int offset = FileMapView.ReadInt32(Header.VarHeaderOffset + ((i * VarHeaderSize) + VarOffsetOffset));
-                int count = FileMapView.ReadInt32(Header.VarHeaderOffset + ((i * VarHeaderSize) + VarCountOffset));
+                int type = FileMapView.ReadInt32(Header.VarHeaderOffset + i * VarHeaderSize);
+                int offset = FileMapView.ReadInt32(Header.VarHeaderOffset + i * VarHeaderSize + VarOffsetOffset);
+                int count = FileMapView.ReadInt32(Header.VarHeaderOffset + i * VarHeaderSize + VarCountOffset);
                 byte[] name = new byte[Defines.MaxString];
                 byte[] desc = new byte[Defines.MaxDesc];
                 byte[] unit = new byte[Defines.MaxString];
-                FileMapView.ReadArray<byte>(Header.VarHeaderOffset + ((i * VarHeaderSize) + VarNameOffset), name, 0, Defines.MaxString);
-                FileMapView.ReadArray<byte>(Header.VarHeaderOffset + ((i * VarHeaderSize) + VarDescOffset), desc, 0, Defines.MaxDesc);
-                FileMapView.ReadArray<byte>(Header.VarHeaderOffset + ((i * VarHeaderSize) + VarUnitOffset), unit, 0, Defines.MaxString);
+                FileMapView.ReadArray(Header.VarHeaderOffset + i * VarHeaderSize + VarNameOffset, name, 0, Defines.MaxString);
+                FileMapView.ReadArray(Header.VarHeaderOffset + i * VarHeaderSize + VarDescOffset, desc, 0, Defines.MaxDesc);
+                FileMapView.ReadArray(Header.VarHeaderOffset + i * VarHeaderSize + VarUnitOffset, unit, 0, Defines.MaxString);
                 string nameStr = encoding.GetString(name).TrimEnd(new char[] { '\0' });
                 string descStr = encoding.GetString(desc).TrimEnd(new char[] { '\0' });
                 string unitStr = encoding.GetString(unit).TrimEnd(new char[] { '\0' });
@@ -141,7 +122,7 @@ namespace OpenIRacingTools.Sdk.Native
                     if (VarHeaders[name].Type == CVarHeader.VarType.irChar)
                     {
                         byte[] data = new byte[count];
-                        FileMapView.ReadArray<byte>(Header.Buffer + varOffset, data, 0, count);
+                        FileMapView.ReadArray(Header.Buffer + varOffset, data, 0, count);
                         return encoding.GetString(data).TrimEnd(new char[] { '\0' });
                     }
                     else if (VarHeaders[name].Type == CVarHeader.VarType.irBool)
@@ -149,7 +130,7 @@ namespace OpenIRacingTools.Sdk.Native
                         if (count > 1)
                         {
                             bool[] data = new bool[count];
-                            FileMapView.ReadArray<bool>(Header.Buffer + varOffset, data, 0, count);
+                            FileMapView.ReadArray(Header.Buffer + varOffset, data, 0, count);
                             return data;
                         }
                         else
@@ -162,7 +143,7 @@ namespace OpenIRacingTools.Sdk.Native
                         if (count > 1)
                         {
                             int[] data = new int[count];
-                            FileMapView.ReadArray<int>(Header.Buffer + varOffset, data, 0, count);
+                            FileMapView.ReadArray(Header.Buffer + varOffset, data, 0, count);
                             return data;
                         }
                         else
@@ -175,7 +156,7 @@ namespace OpenIRacingTools.Sdk.Native
                         if (count > 1)
                         {
                             float[] data = new float[count];
-                            FileMapView.ReadArray<float>(Header.Buffer + varOffset, data, 0, count);
+                            FileMapView.ReadArray(Header.Buffer + varOffset, data, 0, count);
                             return data;
                         }
                         else
@@ -188,7 +169,7 @@ namespace OpenIRacingTools.Sdk.Native
                         if (count > 1)
                         {
                             double[] data = new double[count];
-                            FileMapView.ReadArray<double>(Header.Buffer + varOffset, data, 0, count);
+                            FileMapView.ReadArray(Header.Buffer + varOffset, data, 0, count);
                             return data;
                         }
                         else
@@ -206,7 +187,7 @@ namespace OpenIRacingTools.Sdk.Native
             if (IsInitialized && Header != null)
             {
                 byte[] data = new byte[Header.SessionInfoLength];
-                FileMapView.ReadArray<byte>(Header.SessionInfoOffset, data, 0, Header.SessionInfoLength);
+                FileMapView.ReadArray(Header.SessionInfoOffset, data, 0, Header.SessionInfoLength);
                 return encoding.GetString(data).TrimEnd(new char[] { '\0' });
             }
             return null;
@@ -232,12 +213,12 @@ namespace OpenIRacingTools.Sdk.Native
             return RegisterWindowMessage(Defines.BroadcastMessageName);
         }
 
-        public int BroadcastMessage(BroadcastMessageTypes msg, int var1, int var2, int var3)
+        public int BroadcastMessage(BroadcastMessageType msg, int var1, int var2, int var3)
         {
             return BroadcastMessage(msg, var1, MakeLong((short)var2, (short)var3));
         }
 
-        public int BroadcastMessage(BroadcastMessageTypes msg, int var1, int var2)
+        public int BroadcastMessage(BroadcastMessageType msg, int var1, int var2)
         {
             IntPtr msgId = GetBroadcastMessageID();
             IntPtr hwndBroadcast = IntPtr.Add(IntPtr.Zero, 0xffff);
@@ -256,11 +237,11 @@ namespace OpenIRacingTools.Sdk.Native
         private static extern IntPtr PostMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
         [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr OpenEvent(UInt32 dwDesiredAccess, Boolean bInheritHandle, String lpName);
+        private static extern IntPtr OpenEvent(uint dwDesiredAccess, bool bInheritHandle, string lpName);
 
         public int MakeLong(short lowPart, short highPart)
         {
-            return (int)(((ushort)lowPart) | (uint)(highPart << 16));
+            return (int)((ushort)lowPart | (uint)(highPart << 16));
         }
     }
 }

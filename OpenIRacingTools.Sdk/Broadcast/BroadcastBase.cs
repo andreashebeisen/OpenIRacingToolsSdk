@@ -1,4 +1,4 @@
-﻿using OpenIRacingTools.Sdk.Native;
+﻿using OpenIRacingTools.Sdk.Native.Enums;
 
 namespace OpenIRacingTools.Sdk.Broadcast
 {
@@ -11,7 +11,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
             _wrapper = wrapper;
         }
 
-        protected void Broadcast(BroadcastMessageTypes type, int var1, int var2)
+        protected void Broadcast(BroadcastMessageType type, int var1, int var2)
         {
             if (!_wrapper.IsConnected)
             {
@@ -21,7 +21,7 @@ namespace OpenIRacingTools.Sdk.Broadcast
             _wrapper.BroadcastMessage(type, var1, var2);
         }
 
-        protected void Broadcast(BroadcastMessageTypes type, int var1, int var2, int var3)
+        protected void Broadcast(BroadcastMessageType type, int var1, int var2, int var3)
         {
             if (!_wrapper.IsConnected)
             {
