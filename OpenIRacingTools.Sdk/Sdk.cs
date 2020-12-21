@@ -13,7 +13,7 @@ namespace OpenIRacingTools.Sdk
     /// <summary>
     /// Provides a useful wrapper of the iRacing SDK.
     /// </summary>
-    public sealed partial class Sdk : IDisposable
+    public sealed class Sdk : IDisposable
     {
         #region Fields
 
@@ -84,7 +84,7 @@ namespace OpenIRacingTools.Sdk
 
         private int telemetryUpdateFrequency;
         /// <summary>
-        /// Gets or sets the number of times the telemetry info is updated per second. The default and maximum is 60 times per second.
+        /// Gets or sets the number of times the telemetry info is updated per second. The default and maximum is 10 times per second.
         /// </summary>
         public int TelemetryUpdateFrequency
         {
@@ -208,7 +208,7 @@ namespace OpenIRacingTools.Sdk
                     {
                         // If this is the first time, raise the Connected event
                         RaiseEvent(OnStarted, EventArgs.Empty);
-                        connectionSource.SetResult();
+                        connectionSource.TrySetResult();
                     }
 
                     hasConnected = true;
@@ -219,9 +219,6 @@ namespace OpenIRacingTools.Sdk
                     // Update telemetry info
 
                     TelemetryData = new TelemetryData(sdk);
-
-                    var telArgs = new TelemetryInfoChangedEventArgs(TelemetryData, (double)sdk.GetData("SessionTime"));
-                    RaiseEvent(OnTelemetryInfoChanged, telArgs);
 
                     // Update session info
 
@@ -236,16 +233,24 @@ namespace OpenIRacingTools.Sdk
 
                         if (lastUpdate == -1)
                         {
-                            firstDataSource.SetResult();
+                            firstDataSource.TrySetResult();
                         }
 
                         lastUpdate = newUpdate;
                     }
+
+                    // Send telemetry event now to make sure both data is updated when either event is thrown
+
+                    var telArgs = new TelemetryInfoChangedEventArgs(TelemetryData, (double)sdk.GetData("SessionTime"));
+                    RaiseEvent(OnTelemetryInfoChanged, telArgs);
                 }
                 else if (hasConnected)
                 {
                     // We have already been initialized before, so the sim is closing
                     RaiseEvent(OnStopped, EventArgs.Empty);
+
+                    SessionData = null;
+                    TelemetryData = null;
 
                     sdk.Shutdown();
                     lastUpdate = -1;
@@ -294,7 +299,7 @@ namespace OpenIRacingTools.Sdk
         /// <summary>
         /// Event raised when the sim refreshes the session info (few times per minute).
         /// </summary>
-        public event EventHandler<SessionInfoChangedEventArgs> SessionInfoChanged;
+        public event EventHandler<SessionInfoChangedEventArgs> SessionDataChanged;
 
         /// <summary>
         /// Event raised when the SDK detects the sim for the first time.
@@ -325,7 +330,7 @@ namespace OpenIRacingTools.Sdk
         }
 
         private void OnTelemetryInfoChanged(TelemetryInfoChangedEventArgs e) => TelemetryInfoChanged?.Invoke(this, e);
-        private void OnSessionInfoChanged(SessionInfoChangedEventArgs e) => SessionInfoChanged?.Invoke(this, e);
+        private void OnSessionInfoChanged(SessionInfoChangedEventArgs e) => SessionDataChanged?.Invoke(this, e);
 
         private void OnStarted(EventArgs e) => Started?.Invoke(this, e);
 
