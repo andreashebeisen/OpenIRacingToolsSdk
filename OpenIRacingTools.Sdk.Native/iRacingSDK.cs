@@ -63,14 +63,18 @@ namespace OpenIRacingTools.Sdk.Native
 
             try
             {
+#pragma warning disable CA1416 // Validate platform compatibility
                 iRacingFile = MemoryMappedFile.OpenExisting(Defines.MemMapFileName);
+#pragma warning restore CA1416 // Validate platform compatibility
                 FileMapView = iRacingFile.CreateViewAccessor();
 
                 VarHeaderSize = Marshal.SizeOf(typeof(VarHeader));
 
                 var hEvent = OpenEvent(Defines.DesiredAccess, false, Defines.DataValidEventName);
-                var are = new AutoResetEvent(false);
-                are.Handle = hEvent;
+                var are = new AutoResetEvent(false)
+                {
+                    Handle = hEvent
+                };
 
                 var wh = new WaitHandle[1];
                 wh[0] = are;
